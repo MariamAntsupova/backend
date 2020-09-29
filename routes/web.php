@@ -37,7 +37,7 @@ Route::get("/parameter/{id}",function($id){
 })->name("gettest");
 
 Route::get("/forma",function(){
-	return view("hometask.homework");
+	return view("guest.index");
 });
 
 Route::post("/main",function(Request $req){
