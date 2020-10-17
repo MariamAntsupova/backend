@@ -10,7 +10,7 @@
     <link href=" {{ asset('assets/img/favicon.png') }} " rel=icon>
 
     <!-- web-fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,500' rel='stylesheet' type='text/css'>
+    <link href="{{ asset('https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,500') }} rel='stylesheet' type='text/css'>
     @yield("seo")
     
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
