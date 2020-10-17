@@ -481,6 +481,21 @@
             </div>
         </div>
     </div>
+    @foreach ($techComments as $element)    
+        <div class="media">     
+            
+            <div class="media-body">
+                <h2 class="media-heading"><a href="#">{{ $element ->name }}</a> </h2>
+                    {{ $element ->comment }}
+
+                <div class="entity_vote">
+                    <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                    <a href="#"><span class="reply_ic">Reply </span></a>
+                </div>
+                </div>
+        </div>
+    @endforeach
     <!-- media end -->
 </div>
 <!--Readers Comment-->

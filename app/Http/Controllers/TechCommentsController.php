@@ -14,7 +14,9 @@ class TechCommentsController extends Controller
     // to return view form
     public function create()
     {
-    	return view("techComments.create");
+    	// return view("techComments.create");
+    	$techComments=techComments::get();
+    	return view("techComments.create",["techComments"=>$techComments]);
     }
     //to store data in db
     public function store(Request $request)

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html>
 <head>
     <title></title>
@@ -27,8 +27,8 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" ></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" ></script>
 </body>
-</html>
-{{-- <!DOCTYPE html>
+</html> --}}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -336,28 +336,7 @@
 
     </div>
     <!-- entity_footer -->
-     @foreach($techComments as $element)
-                        
-
-                            <td>
-                        <form action="{{ route('admindelete') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $element->id }}">
-                            <button class="btn btn-danger">
-                                წაშლა
-                            </button>
-                        </form>
-                        <a href="{{ route('adminedit',["id"=>$element->id ]) }}" class="btn btn-warning">
-                            განახლება
-                        </a>
-                        <a href="{{ route('adminshow',["id"=>$element->id ]) }}" class="btn btn-success">
-                            დათვალიერება
-                        </a>
-                    </td>
-
-                        <!-- article_social -->
-                        @endforeach
-</div>
+     
 <!-- entity_wrapper -->
 
 <div class="related_news">
@@ -517,7 +496,25 @@
                 <a href="#"><span class="reply_ic">Reply </span></a>
             </div>
         </div>
-    </div>
+
+    </div>    
+    @foreach ($techComments as $element)    
+        <div class="media">     
+            
+            <div class="media-body">
+                <h2 class="media-heading"><a href="#">{{ $element ->name }}</a> </h2>
+                    {{ $element ->comment }}
+
+                <div class="entity_vote">
+                    <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                    <a href="#"><span class="reply_ic">Reply </span></a>
+                </div>
+                </div>
+        </div>
+    @endforeach
+
+        
     <!-- media end -->
 </div>
 <!--Readers Comment-->
@@ -1127,4 +1124,4 @@
 <!-- Theme Script -->
 <script src="{{ asset('assets/js/script.js') }}"></script></body>
 
-</html> --}}
+</html>
