@@ -35,7 +35,11 @@ class MoviesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Movies::create([
+            "IMDB"=>$request->input("IMDB"),
+            "description"=>$request->input("description"),
+            "genre_id"=>$request->input("genre_id")
+        ]);
     }
 
     /**
