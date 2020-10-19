@@ -24,7 +24,6 @@
 							@csrf
 							<input type="hidden" name="id" value="{{ $post->id }}">
 							<button class="btn btn-danger">delete</button>
-							
 						</form>
 						<a href="{{ route('adminedit',["id"=>$post->id]) }}" class="btn btn-warning">edit</a>
 
