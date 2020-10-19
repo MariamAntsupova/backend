@@ -18,10 +18,21 @@ Route::get("/formtosendpostmethod",function(){
 	return view("guest.form");
 })->name("toreirect");
 
-Route::get("/admin","TechCommentsController@index") -> name("adminindex");
+Route::get("/","TechCommentsController@index") -> name("adminindex");
 Route::get("/admin/create","TechCommentsController@create") -> name("admincreate");
 Route::post("/admin/store","TechCommentsController@store") -> name("adminstore");
-// Route::post("/admin/delete","TechCommentsController@delete") -> name("admindelete");
+Route::get("/admin/posts","TechCommentsController@store") -> name("adminshow");
+Route::get("/admin/createpage","TechCommentsController@postpage") -> name("admincreatepage");
+Route::post("/admin/savepage","TechCommentsController@postpage") -> name("adminsavepage");
+Route::post("/admin", "TechCommentsController@posts");
+Route::get("/admin/show","TechCommentsController@show") -> name("adminshowpage");
+Route::get("/admin/nextshow/{id}","TechCommentsController@nextshow") -> name("adminnextshowpage");
+Route::get("/adminpanel", "AdminController@index");
+Route::post("/adminpanel/delete", "AdminController@delete") -> name("admindelete");
+Route::get("/adminpanel/createshow/{id}","AdminController@createshow")->name("admincreateshow");
+Route::get("/adminpanel/edit{id}","AdminController@edit")->name("adminedit");
+Route::post("/adminpanel/update","AdminController@update")->name("adminupdate");
+
 
 
 
