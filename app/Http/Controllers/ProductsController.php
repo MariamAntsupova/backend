@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Products;
 use App\User;
+use App\Posts;
+use App\Comments;
+use App\Projects;
+use App\UsersProjects;
 use Auth;
 
 class ProductsController extends Controller
@@ -96,5 +100,21 @@ class ProductsController extends Controller
         Products::where("id", $request->input("id"))->delete();
         return redirect()->back();
     }
+    public function get_phone(){
+        return User::with(['phone'])->first()['phone'];
+    }
+    public function PostsWithComments(){
+        // return Comments::join('posts', 'post_id', 'posts.id')->get();
+        // return Comments::with(['Posts'])->first();
+        return Posts::withCount(['comments'])->first();
+    }
 
+    public function CommentsWithPosts(){
+        // return Posts::join('comments','title')->get();
+        return Comments::with(['posts'])->get();
+    }
+    public function get_usersProjects()
+    {
+        return Projects::with('UsersProjects')->get();
+    }
 }

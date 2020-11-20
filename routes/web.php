@@ -27,3 +27,8 @@ Route::post("/home/delete", "ProductsController@delete") -> name("productdelete"
 Route::get("/home/edit{id}","ProductsController@edit")->name("productedit");
 Route::post("/home/update","ProductsController@update")->name("productupdate");
 
+Route::get('/get_numbers', "ProductsController@get_phone");
+
+Route::get('/Posts', "ProductsController@PostsWithComments");
+Route::get('/Comments' , "ProductsController@CommentsWithPosts");
+Route::get('/usersprojects', 'ProductsController@get_usersProjects');
