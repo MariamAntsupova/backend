@@ -38,7 +38,6 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {   
-        return 1; 
         $this->validate( $request, [
           'image' => 'required',
         ]); 
@@ -48,10 +47,11 @@ class PostsController extends Controller
             $img=Input::file("image")->move($dp, $filename);
         }
         CreatePosts::create([
-            'image'=>$filename,
             'title'=> $request->input('title'),
-            'text'=> $request->input('text')
+            'text'=> $request->input('text'),
+            'image'=>$filename,
         ]);    
+        return redirect()->route('welcome'); 
 
     }
 
