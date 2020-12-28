@@ -79,20 +79,18 @@
                 </div>
             @endif
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+            <div style="display: flex; flex-wrap: wrap;">
+                @foreach(App\Products::get() as $product)
+                    <div class="card" style="width: 18rem;  border: solid grey ; border-radius: 5% ; margin-left: 5%; margin-top: 5%" >
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <div class="links">
+                            <a>{{ $product->title }}</a>
+                        </div>
+                        <div>
+                            <a href="{{ route('single',["id"=>$product->id ]) }}">see more ...</a>
+                        </div>
+                    </div>
+                @endforeach 
             </div>
         </div>
     </body>
