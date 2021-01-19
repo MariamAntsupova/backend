@@ -17,7 +17,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('main');
+        $products = Product::get();
+
+        return view('main', ['prd'=>$products]);
     }
 
     /**
@@ -28,35 +30,34 @@ class ProductsController extends Controller
 
     public function create(Request $request)
     {
-        // if (Input::file("image")) 
-        // {
-        //     $dp=public_path("images");
-        //     $filename=uniqid().".jpg";
-        //     $img=Input::file("image")->move($dp,$filename);
+        if (Input::file("image")) 
+        {
+            $dp=public_path("images");
+            $filename=uniqid().".jpg";
+            $img=Input::file("image")->move($dp,$filename);
 
 
-        //     Product::create([
-        //         "name"=>$request->input("name"),
-        //         "description"=>$request->input("description"),
-        //         "price"=>$request->input("price"),
-        //         "image"=>$filename
-        //     ]);
-        // }
+            Product::create([
+                "name"=>$request->input("name"),
+                "description"=>$request->input("description"),
+                "price"=>$request->input("price"),
+                "image"=>$filename
+            ]);
+        }
 
-        $bla = Product::Orderby('created_at', 'desc')->first();
-        return $bla;
+        $latest = Product::Orderby('created_at', 'desc')->first();
 
-        // foreach ($request->input('category') as $cat_id) 
-        // {
+        foreach ($request->input('category') as $cat_id) 
+        {
         
-        // ProductCategory::create([
-        //     'product_id'=>
-        //     'category_id'=>$cat_id
-        // ]);
+        ProductCategory::create([
+            'product_id'=>$latest->id,
+            'category_id'=>$cat_id
+        ]);
 
-        // }
+        }
 
-        // return view('admin.main');
+        return view('admin.main');
 
         
     }
@@ -81,48 +82,50 @@ class ProductsController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function single($id){
+        $product=Product::where("id",$id)->firstOrFail();
+        return view('single',['product'=>$product]);
+    }
+    public function delete(Request $request)  
+    {
+       Product::where("id", $request->input("id"))->delete();
+
+       ProductCategory::where('product_id', $request->input('id'))->delete();
+
+       return redirect()->route('home');
+    }
+    public function edit($id )
+    {
+        $product=Product::where("id",$id)->firstOrFail();
+        return view("update",["product"=>$product]);
+    }
+     public function update(Request $request,$id)
+    {   
+        Product::where("id",$id)->update([
+                "name"=>$request->input("name"),
+                "description"=>$request->input("description"),
+                "price"=>$request->input("price"),
+
+            ]);
+        return redirect()->route('single',["id"=>$id]); 
+    }
     public function show($id)
     {
-        //
+        $product=Product::where("id",$id)->first();
+        return view("show",["product"=>$product]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function filter(Request $request)
     {
-        //
+        $products_id = ProductCategory::where('category_id', $request->input('select'))->get();
+
+        $products = array();
+
+        foreach ($products_id as $p) {
+            array_push($products, Product::where("id", $p->product_id)->firstOrFail()); 
+        }
+
+        return view('main', ["prd"=>$products]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

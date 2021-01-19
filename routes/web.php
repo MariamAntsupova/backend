@@ -11,15 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/main', 'ProductsController@index')->name('main');
+Route::get('/', 'ProductsController@index')->name('main');
 
 Route::get('/admin', 'AdminController@index')->name('AdminPage');
 
@@ -34,3 +34,11 @@ Route::get('/admin/add/category', function() {
 Route::post('/admin/create/category', 'ProductsController@create_category')->name('create_category');
 
 Route::post('/admin/create/product', 'ProductsController@create')->name('create_product');
+Route::get('/single/{id}', 'ProductsController@single')->name('single')->middleware('auth');
+
+Route::post("/delete", "ProductsController@delete")->name("delete");
+Route::get("/edit/{id}","ProductsController@edit")->name("edit");
+Route::post("/update/{id}","ProductsController@update")->name("update");
+Route::get("/show/{id}","ProductsController@show")->name("show");
+
+Route::post("/filter", "ProductsController@filter")->name('filter');
