@@ -42,3 +42,9 @@ Route::post("/update/{id}","ProductsController@update")->name("update");
 Route::get("/show/{id}","ProductsController@show")->name("show");
 
 Route::post("/filter", "ProductsController@filter")->name('filter');
+
+Route::get('/cart', 'CardController@index')->name('cart');
+
+Route::get('/addtocart/{id}', 'CardController@create')->name('addtocard');
+
+Route::get('/remove/product/{id}/fromcard', "CardController@delete")->name('removefromcart');
